@@ -9,11 +9,17 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
+import { ProgressClockComponent } from '../components/progress-clock/progress-clock';
+
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    ProgressBarComponent,
+    ProgressClockComponent
   ],
   imports: [
     BrowserModule,
