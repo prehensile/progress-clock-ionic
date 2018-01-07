@@ -21,18 +21,29 @@ export class ProgressClockComponent {
   progressMonth : number;
   progressYear : number;
 
+  tickInterval: number;
+
+
   constructor() {
     
-    this.progressMinute = 50.0;
-    this.progressHour = 50.0;
-    this.progressDay = 50.0;
-    this.progressMonth = 50.0;
-    this.progressYear = 50.0;
+    this.progressMinute = 0.0;
+    this.progressHour = 0.0;
+    this.progressDay = 0.0;
+    this.progressMonth = 0.0;
+    this.progressYear = 0.0;
 
-    this.tickInterval = setInterval((function () {
-        this.tick();
-    }).bind(this), 1000.0 / 60.0 );
-    
+  }
+
+  ngOnInit() {
+    this.tickInterval = setInterval(() => {
+      this.tick(); 
+    }, 1000.0 / 12.0);
+  }
+
+  ngOnDestroy() {
+    if (this.tickInterval) {
+      clearInterval(this.tickInterval);
+    }
   }
 
   tick() {
@@ -69,7 +80,7 @@ export class ProgressClockComponent {
     // use ms in an hour to calculate percentage through current hour
     let tsHourStart = dtDayStart.getTime() + (now.getHours() * this.MS_IN_AN_HOUR);
     let hourProgress = (now.getTime() - tsHourStart) / this.MS_IN_AN_HOUR;
-    debugger;
+    // debugger;
     return hourProgress;
   }
   
@@ -89,7 +100,6 @@ export class ProgressClockComponent {
     
     let minuteProgress = this.updateMinute( now );
     let hourProgress = this.updateHour( now, dtDayStart );
-    console.log( hourProgress );
     
     this.progressMinute = minuteProgress * 100.0;
     this.progressHour = hourProgress * 100.0;
